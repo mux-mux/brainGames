@@ -1,0 +1,22 @@
+{
+  "name": "brain-games",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "brain-games": "brain-games.js"
+  },
+  "scripts": {
+    "bin/brain-games.js": "bin/brain-games.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mux-mux/brain-games.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mux-mux/brain-games/issues"
+  },
+  "homepage": "https://github.com/mux-mux/brain-games#readme"
+}
