@@ -8,7 +8,7 @@
     "brain-games": "brain-games.js"
   },
   "scripts": {
-    "bin/brain-games.js": "bin/brain-games.js"
+    "test": "test"
   },
   "repository": {
     "type": "git",
@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/mux-mux/brain-games/issues"
   },
-  "homepage": "https://github.com/mux-mux/brain-games#readme"
+  "homepage": "https://github.com/mux-mux/brain-games#readme",
+  "dependencies": {
+    "readline-sync": "^1.4.10"
+  }
 }
