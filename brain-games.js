@@ -2,5 +2,7 @@
 console.log('Welcome to the Brain Games!');
 
 import startBrainEven from './bin/brain-even.js';
+import startBrainCalc from './bin/brain-calc.js';
 
-startBrainEven();
+// startBrainEven();
+startBrainCalc();
