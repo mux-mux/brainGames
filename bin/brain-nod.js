@@ -6,9 +6,9 @@ import { checkCorrect } from '../src/index.js';
 import { showVictory } from '../src/index.js';
 
 let successCount = 0;
-const game = 'startBrainCalc';
+const game = 'startBrainNod';
 
-export default function startBrainCalc() {
+export default function startBrainNod() {
   successCount = 0;
   const name = helloUser();
 
@@ -17,10 +17,9 @@ export default function startBrainCalc() {
     const randNum1 = makeRand();
     const randNum2 = makeRand();
     const randNum = [randNum1, randNum2];
-    const operator = makeRand() < 300 ? '+' : makeRand() > 300 && makeRand() < 600 ? '-' : '*';
-    console.log(`Question: ${randNum1} ${operator} ${randNum2}`);
+    console.log(`Question: ${randNum1} ${randNum2}`);
     const answer = readlineSync.question('Your answer: ');
-    if (checkCorrect(answer, randNum, game, operator)) {
+    if (checkCorrect(answer, randNum, game)) {
       if (successCount < 2) {
         successCount++;
         gameProccess();

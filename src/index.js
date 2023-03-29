@@ -1,5 +1,7 @@
 import startBrainEven from '../bin/brain-even.js';
 import startBrainCalc from '../bin/brain-calc.js';
+import startBrainNod from '../bin/brain-nod.js';
+import startBrainProgr from '../bin/brain-progr.js';
 import readlineSync from 'readline-sync';
 //------------------------------------------------------------------switchGame
 const switchGame = (game) => {
@@ -9,6 +11,12 @@ const switchGame = (game) => {
       break;
     case 'startBrainCalc':
       startBrainCalc();
+      break;
+    case 'startBrainNod':
+      startBrainNod();
+      break;
+    case 'startBrainProgr':
+      startBrainProgr();
       break;
     default:
       return;
@@ -23,6 +31,12 @@ export function showRules(game) {
     case 'startBrainCalc':
       console.log('What is the result of the expression?');
       break;
+    case 'startBrainNod':
+      console.log('Find the greatest common divisor of given numbers.');
+      break;
+    case 'startBrainProgr':
+      console.log('What number is missing in the progression?');
+      break;
     default:
       return;
   }
@@ -32,26 +46,15 @@ export function showMessage(result, game, answer, correct) {
   if (result) {
     console.log('Correct!');
   } else {
-    switch (game) {
-      case 'startBrainEven':
-        console.log(
-          `"${answer}" is wrong answer ;(. Correct answer was "${correct ? 'no' : 'yes'}".`
-        );
-        break;
-      case 'startBrainCalc':
-        console.log(`"${answer}" is wrong answer ;(. Correct answer was "${correct}".`);
-        break;
-      default:
-        return;
-    }
+    console.log(`"${answer}" is wrong answer ;(. Correct answer was "${correct}".`);
   }
 }
 //------------------------------------------------------------------makeRand
-export function makeRand() {
-  return Math.floor(Math.random() * 999);
+export function makeRand(max) {
+  return Math.floor(Math.random() * max + 1);
 }
 //------------------------------------------------------------------checkCorrect
-export function checkCorrect(answer, randNum, game, operator) {
+export function checkCorrect(answer, randNum, game, operator = '+') {
   let result;
   if (game === 'startBrainEven') {
     result = randNum % 2;
@@ -97,11 +100,28 @@ export function checkCorrect(answer, randNum, game, operator) {
       default:
         return 0;
     }
+  } else if (game === 'startBrainNod') {
+    const [x, y] = randNum;
+    const min = Math.min(x, y);
+    const max = Math.max(x, y);
+    for (let i = min; i > 1; i--) {
+      if (max % i === 0 && min % i === 0) {
+        result = i;
+      } else {
+        result = 1;
+      }
+    }
+    if (+answer === result) {
+      showMessage(1, game, answer, result);
+      return 1;
+    } else {
+      showMessage(0, game, answer, result);
+      return 0;
+    }
   }
 }
 //------------------------------------------------------------------showVictory
 export function showVictory(name, game) {
-  console.log(`Congratulations, ${name}!`);
   const isAgain = readlineSync.question(`Let's try again, ${name}! `);
   isAgain === 'yes' ? switchGame(game) : console.log('Bye!');
 }
