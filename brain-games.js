@@ -6,7 +6,7 @@ import startBrainCalc from './bin/brain-calc.js';
 import startBrainNod from './bin/brain-nod.js';
 import startBrainProgr from './bin/brain-progr.js';
 
-// startBrainEven();
-// startBrainCalc();
-// startBrainNod();
+// startBrainEven(name);
+// startBrainCalc(name);
+// startBrainNod(name);
 startBrainProgr();

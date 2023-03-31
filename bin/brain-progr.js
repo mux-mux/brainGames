@@ -5,19 +5,25 @@ import { checkCorrect } from '../src/index.js';
 import { showVictory } from '../src/index.js';
 
 let successCount;
-const game = 'startBrainNod';
+const game = 'startBrainProgr';
 
-export default function startBrainNod(name) {
+export default function startBrainProgr(name) {
   successCount = 0;
 
   const gameProccess = () => {
     showRules(game);
-    const randNum1 = makeRand(15);
-    const randNum2 = makeRand(15);
-    const randNum = [randNum1, randNum2];
-    console.log(`Question: ${randNum1} ${randNum2}`);
+    const randStart = makeRand(30);
+    const randGuessNum = makeRand(9);
+    const randStep = makeRand(5);
+    const progrArr = [];
+    let numGuess;
+    for (let i = 0; i < 10; i++) {
+      i !== randGuessNum ? progrArr.push(randStart + randStep * i) : progrArr.push('...');
+      numGuess = randStart + randStep * i;
+    }
+    console.log(`Question: ${progrArr.join(' ')}`);
     const answer = readlineSync.question('Your answer: ');
-    if (checkCorrect(answer, randNum, game)) {
+    if (checkCorrect(answer, numGuess, game, name)) {
       if (successCount < 2) {
         successCount++;
         gameProccess();

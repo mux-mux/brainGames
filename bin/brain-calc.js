@@ -1,23 +1,21 @@
 import readlineSync from 'readline-sync';
-import helloUser from '../src/cli.js';
 import { showRules } from '../src/index.js';
 import { makeRand } from '../src/index.js';
 import { checkCorrect } from '../src/index.js';
 import { showVictory } from '../src/index.js';
 
-let successCount = 0;
+let successCount;
 const game = 'startBrainCalc';
 
-export default function startBrainCalc() {
+export default function startBrainCalc(name) {
   successCount = 0;
-  const name = helloUser();
 
   const gameProccess = () => {
     showRules(game);
-    const randNum1 = makeRand();
-    const randNum2 = makeRand();
+    const randNum1 = makeRand(10);
+    const randNum2 = makeRand(10);
     const randNum = [randNum1, randNum2];
-    const operator = makeRand() < 300 ? '+' : makeRand() > 300 && makeRand() < 600 ? '-' : '*';
+    const operator = makeRand() < 3 ? '+' : makeRand() > 3 && makeRand() < 6 ? '-' : '*';
     console.log(`Question: ${randNum1} ${operator} ${randNum2}`);
     const answer = readlineSync.question('Your answer: ');
     if (checkCorrect(answer, randNum, game, operator)) {

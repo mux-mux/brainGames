@@ -42,11 +42,12 @@ export function showRules(game) {
   }
 }
 //------------------------------------------------------------------showMessage
-export function showMessage(result, game, answer, correct) {
+export function showMessage(result, game, answer, correct, name) {
   if (result) {
     console.log('Correct!');
   } else {
     console.log(`"${answer}" is wrong answer ;(. Correct answer was "${correct}".`);
+    showVictory(name, game);
   }
 }
 //------------------------------------------------------------------makeRand
@@ -54,18 +55,18 @@ export function makeRand(max) {
   return Math.floor(Math.random() * max + 1);
 }
 //------------------------------------------------------------------checkCorrect
-export function checkCorrect(answer, randNum, game, operator = '+') {
+export function checkCorrect(answer, randNum, game, name, operator = '+') {
   let result;
   if (game === 'startBrainEven') {
     result = randNum % 2;
     if (isAnswerOdd === 0 && answer === 'yes') {
-      showMessage(1, game, answer, result);
+      showMessage(1, game, answer, result, name);
       return 1;
     } else if (isAnswerOdd && answer === 'no') {
-      showMessage(1, game, answer, result);
+      showMessage(1, game, answer, result, name);
       return 1;
     } else {
-      showMessage(0, game, answer, result);
+      showMessage(0, game, answer, result, name);
       return 0;
     }
   } else if (game === 'startBrainCalc') {
@@ -73,28 +74,28 @@ export function checkCorrect(answer, randNum, game, operator = '+') {
       case '+':
         result = randNum.reduce((accum, curr) => accum + curr);
         if (+answer === result) {
-          showMessage(1, game, answer, result);
+          showMessage(1, game, answer, result, name);
           return 1;
         } else {
-          showMessage(0, game, answer, result);
+          showMessage(0, game, answer, result, name);
           return 0;
         }
       case '-':
         result = randNum.reduce((accum, curr) => accum - curr);
         if (+answer === result) {
-          showMessage(1, game, answer, result);
+          showMessage(1, game, answer, result, name);
           return 1;
         } else {
-          showMessage(0, game, answer, result);
+          showMessage(0, game, answer, result, name);
           return 0;
         }
       case '*':
         result = randNum.reduce((accum, curr) => accum * curr);
         if (+answer === result) {
-          showMessage(1, game, answer, result);
+          showMessage(1, game, answer, result, name);
           return 1;
         } else {
-          showMessage(0, game, answer, result);
+          showMessage(0, game, answer, result, name);
           return 0;
         }
       default:
@@ -112,10 +113,20 @@ export function checkCorrect(answer, randNum, game, operator = '+') {
       }
     }
     if (+answer === result) {
-      showMessage(1, game, answer, result);
+      showMessage(1, game, answer, result, name);
       return 1;
     } else {
-      showMessage(0, game, answer, result);
+      showMessage(0, game, answer, result, name);
+      return 0;
+    }
+  }
+  if (game === 'startBrainProgr') {
+    result = randNum;
+    if (answer === randNum) {
+      showMessage(1, game, answer, result, name);
+      return 1;
+    } else {
+      showMessage(0, game, answer, result, name);
       return 0;
     }
   }
