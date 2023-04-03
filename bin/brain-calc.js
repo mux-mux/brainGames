@@ -1,4 +1,5 @@
 import readlineSync from 'readline-sync';
+import { helloUser } from '../src/cli.js';
 import { showRules } from '../src/index.js';
 import { makeRand } from '../src/index.js';
 import { checkCorrect } from '../src/index.js';
@@ -6,8 +7,9 @@ import { showVictory } from '../src/index.js';
 
 let successCount;
 const game = 'startBrainCalc';
+const name = helloUser();
 
-export default function startBrainCalc(name) {
+export default function startBrainCalc() {
   successCount = 0;
 
   const gameProccess = () => {

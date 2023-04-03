@@ -6,18 +6,16 @@ import { checkCorrect } from '../src/index.js';
 import { showVictory } from '../src/index.js';
 
 let successCount;
-const game = 'startBrainNod';
+const game = 'startBrainPrime';
 const name = helloUser();
 
-export default function startBrainNod() {
+export default function startBrainPrime() {
   successCount = 0;
 
   const gameProccess = () => {
     showRules(game);
-    const randNum1 = makeRand(15);
-    const randNum2 = makeRand(15);
-    const randNum = [randNum1, randNum2];
-    console.log(`Question: ${randNum1} ${randNum2}`);
+    const randNum = +makeRand(10);
+    console.log(`Question: ${randNum}`);
     const answer = readlineSync.question('Your answer: ');
     if (checkCorrect(answer, randNum, game)) {
       if (successCount < 2) {

@@ -2,6 +2,7 @@ import startBrainEven from '../bin/brain-even.js';
 import startBrainCalc from '../bin/brain-calc.js';
 import startBrainNod from '../bin/brain-nod.js';
 import startBrainProgr from '../bin/brain-progr.js';
+import startBrainPrime from '../bin/brain-progr.js';
 import readlineSync from 'readline-sync';
 //------------------------------------------------------------------switchGame
 const switchGame = (game) => {
@@ -17,6 +18,9 @@ const switchGame = (game) => {
       break;
     case 'startBrainProgr':
       startBrainProgr();
+      break;
+    case 'startBrainPrime':
+      startBrainPrime();
       break;
     default:
       return;
@@ -37,17 +41,20 @@ export function showRules(game) {
     case 'startBrainProgr':
       console.log('What number is missing in the progression?');
       break;
+    case 'startBrainPrime':
+      console.log('Answer "yes" if given number is prime. Otherwise answer "no".');
+      break;
     default:
       return;
   }
 }
 //------------------------------------------------------------------showMessage
-export function showMessage(result, game, answer, correct, name) {
+export function showMessage(result, game, answer, correct) {
   if (result) {
     console.log('Correct!');
   } else {
     console.log(`"${answer}" is wrong answer ;(. Correct answer was "${correct}".`);
-    showVictory(name, game);
+    // showVictory(name =' ', game);
   }
 }
 //------------------------------------------------------------------makeRand
@@ -55,18 +62,18 @@ export function makeRand(max) {
   return Math.floor(Math.random() * max + 1);
 }
 //------------------------------------------------------------------checkCorrect
-export function checkCorrect(answer, randNum, game, name, operator = '+') {
+export function checkCorrect(answer, randNum, game, operator = '+') {
   let result;
   if (game === 'startBrainEven') {
     result = randNum % 2;
     if (isAnswerOdd === 0 && answer === 'yes') {
-      showMessage(1, game, answer, result, name);
+      showMessage(1, game, answer, result);
       return 1;
     } else if (isAnswerOdd && answer === 'no') {
-      showMessage(1, game, answer, result, name);
+      showMessage(1, game, answer, result);
       return 1;
     } else {
-      showMessage(0, game, answer, result, name);
+      showMessage(0, game, answer, result);
       return 0;
     }
   } else if (game === 'startBrainCalc') {
@@ -74,28 +81,28 @@ export function checkCorrect(answer, randNum, game, name, operator = '+') {
       case '+':
         result = randNum.reduce((accum, curr) => accum + curr);
         if (+answer === result) {
-          showMessage(1, game, answer, result, name);
+          showMessage(1, game, answer, result);
           return 1;
         } else {
-          showMessage(0, game, answer, result, name);
+          showMessage(0, game, answer, result);
           return 0;
         }
       case '-':
         result = randNum.reduce((accum, curr) => accum - curr);
         if (+answer === result) {
-          showMessage(1, game, answer, result, name);
+          showMessage(1, game, answer, result);
           return 1;
         } else {
-          showMessage(0, game, answer, result, name);
+          showMessage(0, game, answer, result);
           return 0;
         }
       case '*':
         result = randNum.reduce((accum, curr) => accum * curr);
         if (+answer === result) {
-          showMessage(1, game, answer, result, name);
+          showMessage(1, game, answer, result);
           return 1;
         } else {
-          showMessage(0, game, answer, result, name);
+          showMessage(0, game, answer, result);
           return 0;
         }
       default:
@@ -113,20 +120,34 @@ export function checkCorrect(answer, randNum, game, name, operator = '+') {
       }
     }
     if (+answer === result) {
-      showMessage(1, game, answer, result, name);
+      showMessage(1, game, answer, result);
       return 1;
     } else {
-      showMessage(0, game, answer, result, name);
+      showMessage(0, game, answer, result);
       return 0;
     }
-  }
-  if (game === 'startBrainProgr') {
+  } else if (game === 'startBrainProgr') {
     result = randNum;
     if (answer === randNum) {
-      showMessage(1, game, answer, result, name);
+      showMessage(1, game, answer, result);
       return 1;
     } else {
-      showMessage(0, game, answer, result, name);
+      showMessage(0, game, answer, result);
+      return 0;
+    }
+  } else if (game === 'startBrainPrime') {
+    result = 'yes';
+    for (let i = 2; i < 9; i++) {
+      if (randNum !== i && randNum % i === 0) {
+        result = 'no';
+        break;
+      }
+    }
+    if (answer === result) {
+      showMessage(1, game, answer, result);
+      return 1;
+    } else {
+      showMessage(0, game, answer, result);
       return 0;
     }
   }

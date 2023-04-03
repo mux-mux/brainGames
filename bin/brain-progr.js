@@ -1,4 +1,5 @@
 import readlineSync from 'readline-sync';
+import { helloUser } from '../src/cli.js';
 import { showRules } from '../src/index.js';
 import { makeRand } from '../src/index.js';
 import { checkCorrect } from '../src/index.js';
@@ -6,8 +7,9 @@ import { showVictory } from '../src/index.js';
 
 let successCount;
 const game = 'startBrainProgr';
+const name = helloUser();
 
-export default function startBrainProgr(name) {
+export default function startBrainProgr() {
   successCount = 0;
 
   const gameProccess = () => {
@@ -18,12 +20,16 @@ export default function startBrainProgr(name) {
     const progrArr = [];
     let numGuess;
     for (let i = 0; i < 10; i++) {
-      i !== randGuessNum ? progrArr.push(randStart + randStep * i) : progrArr.push('...');
-      numGuess = randStart + randStep * i;
+      if (i !== randGuessNum) {
+        progrArr.push(randStart + randStep * i);
+      } else {
+        progrArr.push('...');
+        numGuess = randStart + randStep * i;
+      }
     }
     console.log(`Question: ${progrArr.join(' ')}`);
-    const answer = readlineSync.question('Your answer: ');
-    if (checkCorrect(answer, numGuess, game, name)) {
+    const answer = +readlineSync.question('Your answer: ');
+    if (checkCorrect(answer, +numGuess, game, name)) {
       if (successCount < 2) {
         successCount++;
         gameProccess();
