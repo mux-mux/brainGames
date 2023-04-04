@@ -23,7 +23,7 @@ export default function startBrainNod() {
         gameProccess();
       } else {
         console.log(`Congratulations!`);
-        showVictory(name, game);
+        showVictory(game);
       }
     }
   };
