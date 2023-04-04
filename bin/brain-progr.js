@@ -1,5 +1,4 @@
 import readlineSync from 'readline-sync';
-import { helloUser } from '../src/cli.js';
 import { showRules } from '../src/index.js';
 import { makeRand } from '../src/index.js';
 import { checkCorrect } from '../src/index.js';
@@ -7,7 +6,6 @@ import { showVictory } from '../src/index.js';
 
 let successCount;
 const game = 'startBrainProgr';
-const name = helloUser();
 
 export default function startBrainProgr() {
   successCount = 0;
@@ -29,13 +27,13 @@ export default function startBrainProgr() {
     }
     console.log(`Question: ${progrArr.join(' ')}`);
     const answer = +readlineSync.question('Your answer: ');
-    if (checkCorrect(answer, +numGuess, game, name)) {
+    if (checkCorrect(answer, +numGuess, game)) {
       if (successCount < 2) {
         successCount++;
         gameProccess();
       } else {
-        console.log(`Congratulations, ${name}!`);
-        showVictory(name, game);
+        console.log(`Congratulations!`);
+        showVictory(game);
       }
     }
   };

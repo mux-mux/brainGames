@@ -4,8 +4,38 @@ import startBrainNod from '../bin/brain-nod.js';
 import startBrainProgr from '../bin/brain-progr.js';
 import startBrainPrime from '../bin/brain-progr.js';
 import readlineSync from 'readline-sync';
+//------------------------------------------------------------------gameNum
+export function getGameNum() {
+  const gameNum = readlineSync.question(`
+Swith the Game [1 - 5]: 
+1: isEven
+2: Math Calc
+3: Nod
+4: Fill Progression
+5: isPrime
+`);
+  switch (gameNum) {
+    case '1':
+      switchGame('startBrainEven');
+      break;
+    case '2':
+      switchGame('startBrainCalc');
+      break;
+    case '3':
+      switchGame('startBrainNod');
+      break;
+    case '4':
+      switchGame('startBrainProgr');
+      break;
+    case '5':
+      switchGame('startBrainPrime');
+      break;
+    default:
+      break;
+  }
+}
 //------------------------------------------------------------------switchGame
-const switchGame = (game) => {
+export function switchGame(game) {
   switch (game) {
     case 'startBrainEven':
       startBrainEven();
@@ -25,7 +55,7 @@ const switchGame = (game) => {
     default:
       return;
   }
-};
+}
 //------------------------------------------------------------------showRules
 export function showRules(game) {
   switch (game) {
@@ -54,7 +84,7 @@ export function showMessage(result, game, answer, correct) {
     console.log('Correct!');
   } else {
     console.log(`"${answer}" is wrong answer ;(. Correct answer was "${correct}".`);
-    // showVictory(name =' ', game);
+    showVictory(game);
   }
 }
 //------------------------------------------------------------------makeRand
@@ -66,10 +96,10 @@ export function checkCorrect(answer, randNum, game, operator = '+') {
   let result;
   if (game === 'startBrainEven') {
     result = randNum % 2;
-    if (isAnswerOdd === 0 && answer === 'yes') {
+    if (result === 0 && answer === 'yes') {
       showMessage(1, game, answer, result);
       return 1;
-    } else if (isAnswerOdd && answer === 'no') {
+    } else if (result && answer === 'no') {
       showMessage(1, game, answer, result);
       return 1;
     } else {
@@ -153,7 +183,13 @@ export function checkCorrect(answer, randNum, game, operator = '+') {
   }
 }
 //------------------------------------------------------------------showVictory
-export function showVictory(name, game) {
-  const isAgain = readlineSync.question(`Let's try again, ${name}! `);
-  isAgain === 'yes' ? switchGame(game) : console.log('Bye!');
+export function showVictory(game) {
+  const isAgain = readlineSync.question(`Let's try again? [yes, no, switch] `);
+  if (isAgain === 'yes') {
+    switchGame(game);
+  } else if (isAgain === 'switch') {
+    getGameNum();
+  } else {
+    console.log('Bye!');
+  }
 }
